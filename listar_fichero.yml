@@ -3,7 +3,7 @@
   hosts: localhost
   tasks:
     - name: Listar un archivo o directorio con 'ls'
-      command: ls /ruta/del/archivo_o_directorio
+      command: ls /tmp
       register: resultado_ls
 
     - name: Mostrar el resultado del comando ls
