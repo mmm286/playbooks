@@ -1,6 +1,6 @@
 ---
 - name: Listar contenido de un directorio
-  hosts: localhost
+  hosts: 192.168.1.201
   gather_facts: no  # Desactiva la recolección de hechos
   tasks:
     - name: Listar un archivo o directorio con 'ls'
