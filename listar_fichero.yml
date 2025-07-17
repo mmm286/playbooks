@@ -1,12 +1,18 @@
 ---
 - name: Listar contenido de un directorio
   hosts: localhost
+  gather_facts: no  # Desactiva la recolección de hechos
   tasks:
     - name: Listar un archivo o directorio con 'ls'
       command: ls /tmp
       register: resultado_ls
+      ignore_errors: yes  # Para no detener el playbook si ocurre un error
 
-    - name: Mostrar el resultado del comando ls
+    - name: Mostrar el resultado estándar del comando ls
       debug:
-        msg: "{{ resultado_ls.stdout }}"
+        msg: "Salida: {{ resultado_ls.stdout }}"
 
+    - name: Mostrar el error si ocurre
+      debug:
+        msg: "Error: {{ resultado_ls.stderr }}"
+      when: resultado_ls.stderr != ''
