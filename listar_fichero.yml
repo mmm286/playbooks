@@ -1,18 +1,14 @@
----
 - name: Listar contenido de un directorio
-  hosts: 192.168.1.201
-  gather_facts: no  # Desactiva la recolección de hechos
+  hosts: all
+  become: yes
   tasks:
+
     - name: Listar un archivo o directorio con 'ls'
       command: ls /tmp
-      register: resultado_ls
-      ignore_errors: yes  # Para no detener el playbook si ocurre un error
+      register: ls_output
 
-    - name: Mostrar el resultado estándar del comando ls
+    - name: Mostrar cada línea de salida del ls
       debug:
-        msg: "Salida: {{ resultado_ls.stdout }}"
+        msg: "{{ item }}"
+      loop: "{{ ls_output.stdout_lines }}"
 
-    - name: Mostrar el error si ocurre
-      debug:
-        msg: "Error: {{ resultado_ls.stderr }}"
-      when: resultado_ls.stderr != ''
