@@ -1,1 +1,12 @@
-yaml lista all
+---
+- name: Listar contenido de un directorio
+  hosts: localhost
+  tasks:
+    - name: Listar un archivo o directorio con 'ls'
+      command: ls /ruta/del/archivo_o_directorio
+      register: resultado_ls
+
+    - name: Mostrar el resultado del comando ls
+      debug:
+        msg: "{{ resultado_ls.stdout }}"
+
